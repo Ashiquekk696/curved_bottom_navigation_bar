@@ -24,8 +24,8 @@ dependencies:
   curved_bottom_nav_animations: ^0.0.1
 ```
 Then, run:
-```flutter pub get
-```
+`
+flutter pub get`
 
 Import the package into your Dart file:
 ```import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
