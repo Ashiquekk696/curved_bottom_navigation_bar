@@ -28,6 +28,7 @@ Then, run:
 flutter pub get`
 
 Import the package into your Dart file:
+
 `import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
 `
 ## Usage
