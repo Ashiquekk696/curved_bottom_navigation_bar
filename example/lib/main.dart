@@ -18,7 +18,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(  
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(   
         body: Center(
             child: CurvedBottomNavigationBar(
         selectedItemColor: Colors.red,
