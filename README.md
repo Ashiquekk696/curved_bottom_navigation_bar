@@ -22,17 +22,22 @@ Add this package to your Flutter project by adding it to your `pubspec.yaml` fil
 ```yaml
 dependencies:
   curved_bottom_nav_animations: ^0.0.1
+```
 Then, run:
 
-flutter pub get
+```flutter pub get
+```
+
 Import the package into your Dart file:
 
-import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
-Usage
-Example Code
+```import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
+```
+### Usage
+## Example Code
+
 Here’s an example of how to use the CurvedBottomNavigationBar widget in your app:
 
-import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
+```import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -67,3 +72,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+```
