@@ -21,7 +21,7 @@ Add this package to your Flutter project by adding it to your `pubspec.yaml` fil
 
 ```yaml
 dependencies:
-  curved_bottom_navigation_bar: ^0.0.2
+  curved_bottom_navigation_bar: ^0.0.3
 ```
 Then, run:
 `
@@ -29,7 +29,7 @@ flutter pub get`
 
 Import the package into your Dart file:
 
-`import 'package:curved_bottom_nav_animations/curved_bottom_nav_animations.dart';
+`import 'import 'package:curved_bottom_navigation_bar/curved_bottom_navigation_bar.dart';
 `
 ## Usage
 ### Example Code
