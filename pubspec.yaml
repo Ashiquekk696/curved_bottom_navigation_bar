@@ -29,8 +29,7 @@ topics:
   - bottom navigation
   - curved navigation
   - flutter
-  - ui
-  - animation
+  - curved bottom navigation
   - custom navigation
 
   # To add assets to your package, add an assets section, like this:
