@@ -21,7 +21,7 @@ Add this package to your Flutter project by adding it to your `pubspec.yaml` fil
 
 ```yaml
 dependencies:
-  curved_bottom_nav_animations: ^0.0.1
+  curved_bottom_nav_animations: ^0.0.2
 ```
 Then, run:
 `
