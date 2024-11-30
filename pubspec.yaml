@@ -26,11 +26,11 @@ dev_dependencies:
 flutter:
 
 topics:
-  - bottom navigation
-  - curved navigation
+  - bottom_navigation
+  - curved_navigation
   - flutter
-  - curved bottom navigation
-  - custom navigation
+  - curved_bottom_navigation
+  - custom_navigation
 
   # To add assets to your package, add an assets section, like this:
   # assets:

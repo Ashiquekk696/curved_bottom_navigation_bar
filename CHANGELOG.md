@@ -1,3 +1,6 @@
-## 0.0.1
+## 0.0.2 
+2024-11-30
 
-* TODO: Describe initial release.
+Added Topics to pubspec.yaml
+
+ 
