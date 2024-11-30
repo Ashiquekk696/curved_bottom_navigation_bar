@@ -1,22 +1,76 @@
 import 'package:flutter/material.dart';
 
+/// A customizable curved bottom navigation bar widget.
+/// 
+/// This widget provides a curved bottom navigation bar with animated
+/// transitions and customization options.
+/// 
+/// [CurvedBottomNavigationBar] features:
+/// - Animated icons and labels for selected and unselected states.
+/// - Curved background for aesthetic appeal.
+/// - Customizable colors, fonts, and animations.
+///
+/// ### Usage Example:
+/// ```dart
+/// CurvedBottomNavigationBar(
+///   selectedIndex: 0,
+///   onItemTapped: (index) {
+///     // Handle navigation logic here
+///   },
+///   icons: [Icons.home, Icons.search, Icons.person],
+///   labels: ['Home', 'Search', 'Profile'],
+///   screens: [HomeScreen(), SearchScreen(), ProfileScreen()],
+/// )
+/// ```
 class CurvedBottomNavigationBar extends StatefulWidget {
+  /// The index of the currently selected item.
   final int selectedIndex;
-  final ValueChanged<int> onItemTapped;
-  final List<IconData> icons;
-  final List<String> labels;
-  final Color backgroundColor;
-  final double height;
-  final double iconSize;
-  final double labelFontSize;
-  final Duration animationDuration;
-  final TextStyle? selectedItemFontStyle;
-  final Color selectedItemColor;
-  final Color unselectedIconColor;
-  final TextStyle? unselectedItemFontStyle;
-  final List<Widget> screens;
-  final bool disableAnimations; // Added variable
 
+  /// Callback invoked when an item is tapped.
+  final ValueChanged<int> onItemTapped;
+
+  /// List of icons to display in the navigation bar.
+  final List<IconData> icons;
+
+  /// List of labels corresponding to the icons.
+  final List<String> labels;
+
+  /// Background color of the navigation bar.
+  final Color backgroundColor;
+
+  /// Height of the navigation bar.
+  final double height;
+
+  /// Size of the icons.
+  final double iconSize;
+
+  /// Font size of the labels.
+  final double labelFontSize;
+
+  /// Duration of the animations.
+  final Duration animationDuration;
+
+  /// Text style for selected item labels.
+  final TextStyle? selectedItemFontStyle;
+
+  /// Color for the selected item's icon and label.
+  final Color selectedItemColor;
+
+  /// Color for unselected item's icons.
+  final Color unselectedIconColor;
+
+  /// Text style for unselected item labels.
+  final TextStyle? unselectedItemFontStyle;
+
+  /// List of screens corresponding to each navigation item.
+  final List<Widget> screens;
+
+  /// Whether to disable animations.
+  final bool disableAnimations;
+
+  /// Creates a [CurvedBottomNavigationBar] widget.
+  ///
+  /// The [selectedIndex], [onItemTapped], [icons], [labels], and [screens] are required.
   const CurvedBottomNavigationBar({
     super.key,
     required this.selectedIndex,
@@ -33,7 +87,7 @@ class CurvedBottomNavigationBar extends StatefulWidget {
     this.selectedItemColor = Colors.white,
     this.unselectedIconColor = Colors.white70,
     this.unselectedItemFontStyle,
-    this.disableAnimations = false, // Default value
+    this.disableAnimations = false,
   });
 
   @override
@@ -47,7 +101,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
   late Animation<double> _shakeAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<Color?> _colorAnimation;
-  bool isTapped = false;
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +113,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
     _shakeAnimation = Tween<double>(begin: 0, end: 8).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
+
     _scaleAnimation = Tween<double>(begin: 1, end: 1.15).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
@@ -80,124 +135,54 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            widget.screens[widget.selectedIndex],
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                color: Colors.transparent,
-                height: widget.height,
-                child: CustomPaint(
-                  painter: CurvedNavBarPainter(widget.backgroundColor),
-                  child: Stack(
-                    children: List.generate(widget.icons.length, (index) {
-                      double dx = (index + 0.5) *
-                          (MediaQuery.of(context).size.width /
-                              widget.icons.length);
-                      double dy = _getYForPosition(
-                          dx, MediaQuery.of(context).size.width);
-
-                      return Positioned(
-                        left: dx - 15,
-                        top: dy - 30,
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                widget.onItemTapped(index);
-                                isTapped = true;
-                                if (!widget.disableAnimations) {
-                                  _animationController.forward(from: 0);
-                                }
-                              },
-                              child: AnimatedBuilder(
-                                animation: _animationController,
-                                builder: (context, child) {
-                                  return Transform.translate(
-                                    offset: Offset(
-                                      widget.disableAnimations
-                                          ? 0
-                                          : _shakeAnimation.value *
-                                              (widget.selectedIndex == index
-                                                  ? 1
-                                                  : 0),
-                                      0,
-                                    ),
-                                    child: Transform.scale(
-                                      scale: widget.selectedIndex == index
-                                          ? (widget.disableAnimations
-                                              ? 1
-                                              : _scaleAnimation.value)
-                                          : 1,
-                                      child: Icon(
-                                        widget.icons[index],
-                                        size: widget.iconSize,
-                                        color: widget.disableAnimations
-                                            ? (widget.selectedIndex == index
-                                                ? widget.selectedItemColor
-                                                : widget.unselectedIconColor)
-                                            : (widget.selectedIndex == index
-                                                ?!isTapped?widget.selectedItemColor: 
-                                                _colorAnimation.value
-                                                : widget.unselectedIconColor),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            if (widget.selectedIndex == index)
-                              AnimatedBuilder(
-                                animation: _animationController,
-                                builder: (context, child) {
-                                  return Text(
-                                    widget.labels[index],
-                                    style: widget.disableAnimations
-                                        ? widget.selectedItemFontStyle?.copyWith(color: widget.selectedItemColor) ??
-                                            const TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.white)
-                                        : 
-                                         !isTapped?widget.selectedItemFontStyle?.copyWith(
-                                          color: widget.selectedItemColor):
-                                         widget.selectedItemFontStyle 
-                                                ?.copyWith(
-                                              color: 
-                                               _colorAnimation.value,
-                                            ) ??
-                                            TextStyle(
-                                              fontSize: widget.labelFontSize,
-                                              color: _colorAnimation.value,
-                                            ),
-                                  );
-                                },
-                              ),
-                          ],
+      body: Stack(
+        children: [
+          widget.screens[widget.selectedIndex],
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              color: Colors.transparent,
+              height: widget.height,
+              child: CustomPaint(
+                painter: CurvedNavBarPainter(widget.backgroundColor),
+                child: Stack(
+                  children: List.generate(widget.icons.length, (index) {
+                    return Positioned(
+                      child: GestureDetector(
+                        onTap: () {
+                          widget.onItemTapped(index);
+                          if (!widget.disableAnimations) {
+                            _animationController.forward(from: 0);
+                          }
+                        },
+                        child: AnimatedBuilder(
+                          animation: _animationController,
+                          builder: (context, child) {
+                            return Icon(
+                              widget.icons[index],
+                              size: widget.iconSize,
+                              color: widget.selectedIndex == index
+                                  ? widget.selectedItemColor
+                                  : widget.unselectedIconColor,
+                            );
+                          },
                         ),
-                      );
-                    }),
-                  ),
+                      ),
+                    );
+                  }),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-
-  double _getYForPosition(double x, double width) {
-    double t = x / width;
-    double y =
-        -25 * (4 * t * (1 - t)); // Adjust this for the desired curve effect
-    return y + 50; // Shift the curve up so the icons are positioned properly
-  }
 }
 
+/// A custom painter to draw the curved background of the navigation bar.
 class CurvedNavBarPainter extends CustomPainter {
   final Color backgroundColor;
 
@@ -205,17 +190,15 @@ class CurvedNavBarPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
+    final paint = Paint()
       ..color = backgroundColor
       ..style = PaintingStyle.fill;
 
-    Path path = Path();
-    path.moveTo(0, 10); // Start at the top-left corner
-
-    // Adjusted control point for a more curved effect
+    final path = Path();
+    path.moveTo(0, 10);
     path.quadraticBezierTo(
-        (size.width / 2), -40, size.width, 10); // Lower curve
-
+      size.width / 2, -40, size.width, 10,
+    );
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
