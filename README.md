@@ -29,7 +29,7 @@ flutter pub get`
 
 Import the package into your Dart file:
 
-` 'import 'package:curved_bottom_navigation_bar/curved_bottom_navigation_bar.dart';
+` 'package:curved_bottom_navigation_bar/curved_bottom_navigation_bar.dart';
 `
 ## Usage
 ### Example Code
