@@ -1,6 +1,6 @@
-## 0.0.5
-2024-11-30
+## 0.0.7
+2024-12-02
 
-Added Topics to pubspec.yaml
+Changed Dart SDK constraints to ">=3.0.0 <=3.5.4"
 
  

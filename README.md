@@ -21,7 +21,7 @@ Add this package to your Flutter project by adding it to your `pubspec.yaml` fil
 
 ```yaml
 dependencies:
-  curved_bottom_navigation_bar: ^0.0.5
+  curved_bottom_navigation_bar: ^0.0.7
 ```
 Then, run:
 `

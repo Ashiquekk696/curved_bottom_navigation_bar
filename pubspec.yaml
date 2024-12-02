@@ -1,13 +1,13 @@
 name: curved_bottom_navigation_bar
 description: "A highly customizable and animated curved bottom navigation bar for Flutter. 
 This package provides a visually appealing navigation bar with smooth animations for scaling, shaking, and color transitions, making it perfect for modern app designs."
-version: 0.0.5
+version: 0.0.7
 license: MIT
 homepage: https://github.com/Ashiquekk696/curved_bottom_navigation_bar
 repository: https://github.com/Ashiquekk696/curved_bottom_navigation_bar
 
 environment:
-  sdk: ^3.5.4
+  sdk: ">=3.0.0 <=3.5.4"
   flutter: ">=1.17.0"
 
 dependencies:
