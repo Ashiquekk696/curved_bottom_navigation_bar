@@ -24,23 +24,51 @@ import 'package:flutter/material.dart';
 /// - [unselectedIconColor] - The color of the unselected item icons.
 /// - [unselectedItemFontStyle] - The font style for the unselected item label.
 /// - [disableAnimations] - Whether to disable animations for item selection.
-
 class CurvedBottomNavigationBar extends StatefulWidget {
+  /// Index of the currently selected item.
   final int selectedIndex;
+
+  /// Callback function triggered when an item is tapped.
   final ValueChanged<int> onItemTapped;
+
+  /// List of icons displayed in the navigation bar.
   final List<IconData> icons;
+
+  /// List of labels corresponding to each icon.
   final List<String> labels;
+
+  /// Background color of the navigation bar.
   final Color backgroundColor;
+
+  /// Height of the navigation bar.
   final double height;
+
+  /// Size of the icons in the navigation bar.
   final double iconSize;
+
+  /// Font size for the labels.
   final double labelFontSize;
+
+  /// Duration for the animations.
   final Duration animationDuration;
+
+  /// Font style for the selected item's label.
   final TextStyle? selectedItemFontStyle;
+
+  /// Color for the selected item's icon and label.
   final Color selectedItemColor;
+
+  /// Color for the unselected icons.
   final Color unselectedIconColor;
+
+  /// Font style for the unselected item's label.
   final TextStyle? unselectedItemFontStyle;
+
+  /// List of screens associated with each navigation bar item.
   final List<Widget> screens;
-  final bool disableAnimations; // Added variable
+
+  /// Flag to disable animations.
+  final bool disableAnimations;
 
   const CurvedBottomNavigationBar({
     super.key,
@@ -58,7 +86,7 @@ class CurvedBottomNavigationBar extends StatefulWidget {
     this.selectedItemColor = Colors.white,
     this.unselectedIconColor = Colors.white70,
     this.unselectedItemFontStyle,
-    this.disableAnimations = false, // Default value
+    this.disableAnimations = false,
   });
 
   @override
@@ -68,10 +96,19 @@ class CurvedBottomNavigationBar extends StatefulWidget {
 
 class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
     with TickerProviderStateMixin {
+  /// Animation controller for managing animations.
   late AnimationController _animationController;
+
+  /// Animation for shaking the icon.
   late Animation<double> _shakeAnimation;
+
+  /// Animation for scaling the icon.
   late Animation<double> _scaleAnimation;
+
+  /// Animation for transitioning the icon color.
   late Animation<Color?> _colorAnimation;
+
+  /// Tracks whether an item is tapped.
   bool isTapped = false;
 
   @override
@@ -109,6 +146,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
       body: SafeArea(
         child: Stack(
           children: [
+            /// Displays the currently selected screen.
             widget.screens[widget.selectedIndex],
             Positioned(
               bottom: 0,
@@ -121,9 +159,12 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
                   painter: CurvedNavBarPainter(widget.backgroundColor),
                   child: Stack(
                     children: List.generate(widget.icons.length, (index) {
+                      /// Calculates the horizontal position of each icon.
                       double dx = (index + 0.5) *
                           (MediaQuery.of(context).size.width /
                               widget.icons.length);
+
+                      /// Calculates the vertical position of each icon based on the curve.
                       double dy = _getYForPosition(
                           dx, MediaQuery.of(context).size.width);
 
@@ -134,6 +175,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
                           children: [
                             GestureDetector(
                               onTap: () {
+                                /// Handles item tap and triggers animations if enabled.
                                 widget.onItemTapped(index);
                                 isTapped = true;
                                 if (!widget.disableAnimations) {
@@ -167,8 +209,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
                                                 ? widget.selectedItemColor
                                                 : widget.unselectedIconColor)
                                             : (widget.selectedIndex == index
-                                                ?!isTapped?widget.selectedItemColor: 
-                                                _colorAnimation.value
+                                                ? _colorAnimation.value
                                                 : widget.unselectedIconColor),
                                       ),
                                     ),
@@ -183,18 +224,15 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
                                   return Text(
                                     widget.labels[index],
                                     style: widget.disableAnimations
-                                        ? widget.selectedItemFontStyle?.copyWith(color: widget.selectedItemColor) ??
+                                        ? widget.selectedItemFontStyle?.copyWith(
+                                              color: widget.selectedItemColor,
+                                            ) ??
                                             const TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.white)
-                                        : 
-                                         !isTapped?widget.selectedItemFontStyle?.copyWith(
-                                          color: widget.selectedItemColor):
-                                         widget.selectedItemFontStyle 
-                                                ?.copyWith(
-                                              color: 
-                                               _colorAnimation.value,
-                                            ) ?? 
+                                        : widget.selectedItemFontStyle?.copyWith(
+                                              color: _colorAnimation.value,
+                                            ) ??
                                             TextStyle(
                                               fontSize: widget.labelFontSize,
                                               color: _colorAnimation.value,
@@ -230,6 +268,7 @@ class _CurvedBottomNavigationBarState extends State<CurvedBottomNavigationBar>
 
 /// A custom painter for drawing the curved background of the bottom navigation bar.
 class CurvedNavBarPainter extends CustomPainter {
+  /// Background color of the curved navigation bar.
   final Color backgroundColor;
 
   CurvedNavBarPainter(this.backgroundColor);
@@ -256,4 +295,4 @@ class CurvedNavBarPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
+} 
