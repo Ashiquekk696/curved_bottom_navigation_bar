@@ -1,6 +1,6 @@
-## 0.0.7
+## 0.0.8
 2024-12-02
 
-Changed Dart SDK constraints to ">=3.0.0 <=3.5.4"
+Changed Dart SDK constraints to ">=3.0.0 <=4.0.0"
 
  
