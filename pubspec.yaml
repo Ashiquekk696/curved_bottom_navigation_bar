@@ -6,7 +6,7 @@ homepage: https://github.com/Ashiquekk696/curved_bottom_navigation_bar
 repository: https://github.com/Ashiquekk696/curved_bottom_navigation_bar
 
 environment:
-  sdk: ">=3.0.0 <=3.5.4"
+  sdk: ">=3.0.0 <=3.7.0"
   flutter: ">=1.17.0"
 
 dependencies:
